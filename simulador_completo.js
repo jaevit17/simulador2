@@ -10,4 +10,14 @@
   let creditoAprobado = false;
 
   
-//Para recuperar o mostrar información usar los métodos de la clase utilitarios, puede agregar métodos adicionales en utilitarios
+//Funciones--------------------
+// ocultar secciones
+function ocultarSecciones(){
+  desactivaSeccion("parametros")
+  desactivaSeccion("clientes")
+}
+//mostrarSeccion
+function mostrarSeccion(idSeccion){
+  ocultarSecciones();
+  activaSeccion(idSeccion);
+}

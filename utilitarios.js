@@ -1,3 +1,15 @@
+function activaSeccion(idComponente){
+    let componente=document.getElementById(idComponente);
+    let valor=componente.classList.add("activa");
+}
+function desactivaSeccion(idComponente){
+    let componente=document.getElementById(idComponente);
+    let valor=componente.classList.remove("activa");
+}
+
+
+
+
 function recuperaraTexto(idComponente){
     let componente;
     let valorIngresado;
