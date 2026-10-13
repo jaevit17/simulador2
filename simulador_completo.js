@@ -1,5 +1,5 @@
 
-  let clientes = [];
+  let clientes=[];
   let creditos = [];
 
   let tasaInteres = 15;
@@ -9,9 +9,34 @@
   let plazoCalculado = 0;
   let creditoAprobado = false;
 
-  
-//Funciones--------------------
-// ocultar secciones
+//Objetos precargados-----------------
+let cliente1={
+              cedula:1712345678,
+              nombre:"Juan",
+              apellido:"Pérez",
+              ingresos:1200,
+              egresos:500
+              }
+clientes.push(cliente1);
+let cliente2={
+              cedula:1723456789,
+              nombre:"María",
+              apellido:"Gómez",
+              ingresos:1500,
+              egresos:600
+              }
+clientes.push(cliente2);
+let cliente3={
+              cedula:1734567890,
+              nombre:"Carlos",
+              apellido:"Ramírez",
+              ingresos:900,
+              egresos:350
+              }
+clientes.push(cliente3);
+
+//Funciones Parametros----------------
+//ocultar secciones
 function ocultarSecciones(){
   desactivaSeccion("parametros")
   desactivaSeccion("clientes")
@@ -30,4 +55,40 @@ function guardarTasa(){
   }else{
     mostrarMensajeTasa("Tasa configurada correctamente: "+tasa+"%");
   }
+}
+
+//Funciones Clientes----------------
+//guardar cliente
+function guardarCliente(){
+  let cedula=recuperarInt("cedula");
+  let nombre=recuperarCajaTexto("nombre");
+  let apellido=recuperarCajaTexto("apellido");
+  let ingresos=recuperarInt("ingresos");
+  let egresos=recuperarInt("egresos");
+  let cliente={cedula,
+              nombre,
+              apellido,
+              ingresos,
+              egresos
+              }
+  clientes.push(cliente);
+  pintarClientes();
+}
+//pintar clientes
+function pintarClientes(){
+  let contenidoTabla="";
+  for( let i=0;i<clientes.length;i++){
+    contenidoTabla+="<tr>"+
+          "<td>"+clientes[i].cedula+"</td>"+
+          "<td>"+clientes[i].nombre+"</td>"+
+          "<td>"+clientes[i].apellido+"</td>"+
+          "<td>"+clientes[i].ingresos+"</td>"+
+          "<td>"+clientes[i].egresos+"</td>"+
+          "<td>"+
+            "<button>Actualizar</button>"+
+            "<button>Eliminar</button>"+
+          "</td>"+
+        "</tr>"
+  }
+  mostrarContenidoHtml("tablaClientes",contenidoTabla);
 }

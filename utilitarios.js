@@ -12,11 +12,14 @@ function recuperarTexto(idComponente){
     let componente=document.getElementById(idComponente);
     return componente;
 }
-
 function mostrarMensajeTasa(textoMostrar){
     let cmpMensajeTasa=recuperarTexto("mensajeTasa").innerText=textoMostrar;
 }
-
+function mostrarContenidoHtml(idComponente,mensaje){
+    let componente;
+    componente=document.getElementById(idComponente);
+    componente.innerHTML=mensaje;
+}
 function recuperarCajaTexto(idComponente){
     let componente;
     let valorIngresado;
@@ -26,7 +29,7 @@ function recuperarCajaTexto(idComponente){
     }
     
     function recuperarInt(idComponente){
-        let valorCaja=recuperaraTexto(idComponente);
+        let valorCaja=recuperarCajaTexto(idComponente);
         let valorEntero=parseInt(valorCaja);
         return valorEntero;
     }
