@@ -16,8 +16,18 @@ function ocultarSecciones(){
   desactivaSeccion("parametros")
   desactivaSeccion("clientes")
 }
-//mostrarSeccion
+//mostrar seccion
 function mostrarSeccion(idSeccion){
   ocultarSecciones();
   activaSeccion(idSeccion);
+}
+//guardar tasa
+function guardarTasa(){
+  let cmpTasa=recuperarCajaTexto("tasaInteres");
+  let tasa=parseInt(cmpTasa);
+  if(tasa<10||tasa>20){
+    mostrarMensajeTasa("La tasa debe estar entre 10% y 20%");
+  }else{
+    mostrarMensajeTasa("Tasa configurada correctamente: "+tasa+"%");
+  }
 }

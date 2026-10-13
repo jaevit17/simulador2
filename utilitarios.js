@@ -1,3 +1,4 @@
+//Navegacion secciones
 function activaSeccion(idComponente){
     let componente=document.getElementById(idComponente);
     let valor=componente.classList.add("activa");
@@ -6,11 +7,17 @@ function desactivaSeccion(idComponente){
     let componente=document.getElementById(idComponente);
     let valor=componente.classList.remove("activa");
 }
+//----------------------
+function recuperarTexto(idComponente){
+    let componente=document.getElementById(idComponente);
+    return componente;
+}
 
+function mostrarMensajeTasa(textoMostrar){
+    let cmpMensajeTasa=recuperarTexto("mensajeTasa").innerText=textoMostrar;
+}
 
-
-
-function recuperaraTexto(idComponente){
+function recuperarCajaTexto(idComponente){
     let componente;
     let valorIngresado;
     componente=document.getElementById(idComponente);
