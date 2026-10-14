@@ -130,3 +130,24 @@ function limpiar(){
     mostrarContenidoCajaText("ingresos","");
     mostrarContenidoCajaText("egresos","");
 }
+
+//Funciones Creditos----------------
+//buscar Cliente para Credito
+function buscarClienteCredito(){
+  let cedula=document.getElementById("buscarCedulaCredito");
+  let valorCedula=cedula.value;
+  let cliente=buscarCliente(valorCedula);
+  if(cliente!=null){
+    mensajeEnParrafo("mensajeCredito","Cliente Encontrado");
+    mensajeEnParrafo("nombreCredito","Nombre: "+cliente.nombre);
+    mensajeEnParrafo("apellidoCredito","Apellido: "+cliente.apellido);
+    mensajeEnParrafo("ingresosCredito","Ingresos: "+cliente.ingresos);
+    mensajeEnParrafo("egresosCredito","Egresos: "+cliente.egresos);
+  }else{
+    mensajeEnParrafo("mensajeCredito","Cliente No Encontrado");
+    mensajeEnParrafo("nombreCredito","");
+    mensajeEnParrafo("apellidoCredito","");
+    mensajeEnParrafo("ingresosCredito","");
+    mensajeEnParrafo("egresosCredito","");
+  }
+}

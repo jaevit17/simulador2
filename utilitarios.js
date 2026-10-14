@@ -24,6 +24,10 @@ function mostrarContenidoCajaText(idComponente,valor){
     componente.value=valor;
 }
 
+function mensajeEnParrafo(idComponente,mensaje){
+    document.getElementById(idComponente).textContent=mensaje;
+}
+
 function recuperarCajaTexto(idComponente){
     let componente;
     let valorIngresado;
