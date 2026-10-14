@@ -65,6 +65,8 @@ function guardarCliente(){
   let apellido=recuperarCajaTexto("apellido");
   let ingresos=recuperarInt("ingresos");
   let egresos=recuperarInt("egresos");
+  let clienteEncontrado=buscarCliente(cedula);
+  if(clienteEncontrado==null){
   let cliente={cedula,
               nombre,
               apellido,
@@ -72,7 +74,13 @@ function guardarCliente(){
               egresos
               }
   clientes.push(cliente);
-  pintarClientes();
+  }else{
+    clienteEncontrado.nombre=nombre;
+    clienteEncontrado.apellido=apellido;
+    clienteEncontrado.ingresos=ingresos;
+    clienteEncontrado.egresos=egresos;
+}
+pintarClientes();
 }
 //pintar clientes
 function pintarClientes(){
@@ -85,10 +93,40 @@ function pintarClientes(){
           "<td>"+clientes[i].ingresos+"</td>"+
           "<td>"+clientes[i].egresos+"</td>"+
           "<td>"+
-            "<button>Actualizar</button>"+
+            `<button onclick="seleccionarCliente('`+clientes[i].cedula+`')">Actualizar</button>`+
             "<button>Eliminar</button>"+
           "</td>"+
         "</tr>"
   }
   mostrarContenidoHtml("tablaClientes",contenidoTabla);
+}
+//buscar cliente
+function buscarCliente(cedula){
+  let clienteEncontrado=null;
+  for(let i=0;i<clientes.length;i++){
+    if(clientes[i].cedula==cedula){
+      clienteEncontrado=clientes[i];
+      break;
+    }
+  }
+  return clienteEncontrado;
+}
+//seleccionar cliente
+function seleccionarCliente(cedula){
+  let clienteSeleccionado=buscarCliente(cedula);
+  if(clienteSeleccionado !=null){
+    mostrarContenidoCajaText("cedula",clienteSeleccionado.cedula);
+    mostrarContenidoCajaText("nombre",clienteSeleccionado.nombre);
+    mostrarContenidoCajaText("apellido",clienteSeleccionado.apellido);
+    mostrarContenidoCajaText("ingresos",clienteSeleccionado.ingresos);
+    mostrarContenidoCajaText("egresos",clienteSeleccionado.egresos);
+  }
+}
+//limpiar
+function limpiar(){
+    mostrarContenidoCajaText("cedula","");
+    mostrarContenidoCajaText("nombre","");
+    mostrarContenidoCajaText("apellido","");
+    mostrarContenidoCajaText("ingresos","");
+    mostrarContenidoCajaText("egresos","");
 }

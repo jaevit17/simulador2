@@ -16,10 +16,14 @@ function mostrarMensajeTasa(textoMostrar){
     let cmpMensajeTasa=recuperarTexto("mensajeTasa").innerText=textoMostrar;
 }
 function mostrarContenidoHtml(idComponente,mensaje){
-    let componente;
-    componente=document.getElementById(idComponente);
+    let componente=document.getElementById(idComponente);
     componente.innerHTML=mensaje;
 }
+function mostrarContenidoCajaText(idComponente,valor){
+    let componente=document.getElementById(idComponente)
+    componente.value=valor;
+}
+
 function recuperarCajaTexto(idComponente){
     let componente;
     let valorIngresado;
