@@ -175,4 +175,9 @@ function calcularCredito(){
   }if(resultCredito==false){
   mostrarTexto("resultadoAprobacion","CREDITO: RECHAZADO")
   }
+  //Mostrar en pantalla resultados
+  mostrarMensajeDiv("resultadoCredito",'<h3>Datos del Credito</h3>'+
+  '<p><strong>Capacidad de Pago: </strong>'+capacidPago+'</p>'+
+  '<p><strong>Total a pagar: </strong>'+totalAPagar+'</p>'+
+  '<p><strong>Cuota Mensual: </strong>'+mensual+'</p>');
 }
