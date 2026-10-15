@@ -9,6 +9,7 @@
   let plazoCalculado = 0;
   let creditoAprobado = false;
 
+
 //Objetos precargados-----------------
 let cliente1={
               cedula:1712345678,
@@ -35,6 +36,7 @@ let cliente3={
               }
 clientes.push(cliente3);
 
+
 //Funciones Parametros----------------
 //ocultar secciones
 function ocultarSecciones(){
@@ -56,6 +58,7 @@ function guardarTasa(){
     mostrarMensajeTasa("Tasa configurada correctamente: "+tasa+"%");
   }
 }
+
 
 //Funciones Clientes----------------
 //guardar cliente
@@ -131,6 +134,7 @@ function limpiar(){
     mostrarContenidoCajaText("egresos","");
 }
 
+
 //Funciones Creditos----------------
 //buscar Cliente para Credito
 function buscarClienteCredito(){
@@ -138,16 +142,37 @@ function buscarClienteCredito(){
   let valorCedula=cedula.value;
   let cliente=buscarCliente(valorCedula);
   if(cliente!=null){
-    mensajeEnParrafo("mensajeCredito","Cliente Encontrado");
-    mensajeEnParrafo("nombreCredito","Nombre: "+cliente.nombre);
-    mensajeEnParrafo("apellidoCredito","Apellido: "+cliente.apellido);
-    mensajeEnParrafo("ingresosCredito","Ingresos: "+cliente.ingresos);
-    mensajeEnParrafo("egresosCredito","Egresos: "+cliente.egresos);
+    mostrarMensajeDiv("datosClienteCredito",'<h3>Datos del Cliente</h3>'+
+    '<p><strong>Cédula: </strong>'+cliente.cedula+'</p>'+
+    '<p><strong>Nombre: </strong>'+cliente.nombre+'</p>'+
+    '<p><strong>Apellido: </strong>'+cliente.apellido+'</p>'+
+    '<p><strong>Ingresos: </strong>'+cliente.ingresos+'</p>'+
+    '<p><strong>Egresos: </strong>'+cliente.egresos+'</p>');
   }else{
-    mensajeEnParrafo("mensajeCredito","Cliente No Encontrado");
-    mensajeEnParrafo("nombreCredito","");
-    mensajeEnParrafo("apellidoCredito","");
-    mensajeEnParrafo("ingresosCredito","");
-    mensajeEnParrafo("egresosCredito","");
+    mensajeEnParrafo("datosClienteCredito", "Cliente: "+valorCedula+", no encontrado");
+  }
+}
+//calcular Credito
+function calcularCredito(){
+  //capacidad de pago
+  let cedula=document.getElementById("buscarCedulaCredito");
+  let valorCedula=cedula.value;
+  let cliente=buscarCliente(valorCedula);
+  let disponible=cliente.ingresos-cliente.egresos;
+  let capacidPago=capacidadDePago(disponible);
+  //Total a pagar
+  let monto=recuperarFloat("montoCredito");
+  let plazoAnios=recuperarInt("plazoCredito");
+  let tasa=recuperarInt("tasaCredito");
+  let intereses=interes(monto,tasa,plazoAnios);
+  let totalAPagar=totalPagar(monto,intereses)
+  //Cuota mensual
+  let mensual=calcularCuotaMensual(totalAPagar,plazoAnios).toFixed(2);
+  //Resultado del Credito
+  let resultCredito=aprobarCredito(capacidPago,mensual);
+  if(resultCredito==true){
+  mostrarTexto("resultadoAprobacion", "CREDITO: APROVADO")
+  }if(resultCredito==false){
+  mostrarTexto("resultadoAprobacion","CREDITO: RECHAZADO")
   }
 }

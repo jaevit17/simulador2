@@ -28,6 +28,10 @@ function mensajeEnParrafo(idComponente,mensaje){
     document.getElementById(idComponente).textContent=mensaje;
 }
 
+function mostrarMensajeDiv(idComponente,mensaje){
+    document.getElementById(idComponente).innerHTML=mensaje;
+}
+
 function recuperarCajaTexto(idComponente){
     let componente;
     let valorIngresado;
@@ -42,7 +46,7 @@ function recuperarCajaTexto(idComponente){
         return valorEntero;
     }
     function recuperarFloat(idComponente){
-        let valorCaja=recuperaraTexto(idComponente);
+        let valorCaja=recuperarCajaTexto(idComponente);
         let valorFlotante=parseFloat(valorCaja);
         return valorFlotante;
     }

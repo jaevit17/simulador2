@@ -96,26 +96,23 @@
 <section id="creditos">
   <h2>Solicitar Crédito</h2>
 
-  <input type="text" id="buscarCedulaCredito">
+  <input type="text" id="buscarCedulaCredito" placeholder="cedula">
   <button onclick="buscarClienteCredito()">Buscar cliente</button>
 
-  <div id="datosClienteCredito" class="card">
-    <p id="mensajeCredito"></p>
-    <p id="nombreCredito"></p>
-    <p id="apellidoCredito"></p>
-    <p id="ingresosCredito"></p>
-    <p id="egresosCredito"></p>
-  </div>
-    
-
-  <input type="number" id="montoCredito" >
-  <input type="number" id="plazoCredito" >
+  <div id="datosClienteCredito" class="card"></div>
+  <h3>Monto:</h3>
+  <input type="text" id="montoCredito" placeholder="monto de credito" min="0">
+  <h3>Plazo Años:</h3>
+  <input type="number" id="plazoCredito" placeholder="plazo años" min="0">
+  <h3>Tasa %:</h3>
+  <input type="number" id="tasaCredito" placeholder="tasa %" min="5" max="35">
 
   <br>
 
   <button onclick="calcularCredito()">Calcular crédito</button>
 
-  <div id="resultadoCredito"></div>
+  <div id="resultadoCredito" class="card"></div>
+  <p id="resultadoAprobacion"></p>
 
   <button id="btnSolicitarCredito" onclick="solicitarCredito()" disabled>
     Solicitar crédito
@@ -126,5 +123,6 @@
 
 <script src="simulador_completo.js"></script>
 <script src="utilitarios.js"></script>
+<script src="funcionesCredito.js"></script>
 </body>
 </html>
