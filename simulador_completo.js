@@ -42,6 +42,7 @@ clientes.push(cliente3);
 function ocultarSecciones(){
   desactivaSeccion("parametros")
   desactivaSeccion("clientes")
+  desactivaSeccion("creditos")
 }
 //mostrar seccion
 function mostrarSeccion(idSeccion){
@@ -57,6 +58,7 @@ function guardarTasa(){
   }else{
     mostrarMensajeTasa("Tasa configurada correctamente: "+tasa+"%");
   }
+  return tasa;
 }
 
 
@@ -159,21 +161,27 @@ function calcularCredito(){
   let valorCedula=cedula.value;
   let cliente=buscarCliente(valorCedula);
   let disponible=cliente.ingresos-cliente.egresos;
-  let capacidPago=capacidadDePago(disponible);
+  let capacidPago=capacidadDePago(disponible).toFixed(2);
   //Total a pagar
+  tasa=guardarTasa();
   let monto=recuperarFloat("montoCredito");
   let plazoAnios=recuperarInt("plazoCredito");
-  let tasa=recuperarInt("tasaCredito");
   let intereses=interes(monto,tasa,plazoAnios);
   let totalAPagar=totalPagar(monto,intereses)
   //Cuota mensual
   let mensual=calcularCuotaMensual(totalAPagar,plazoAnios).toFixed(2);
   //Resultado del Credito
+  let colorResultado1=document.getElementById("resultadoCredito");
+  let colorResultado2=document.getElementById("resultadoAprobacion");
   let resultCredito=aprobarCredito(capacidPago,mensual);
   if(resultCredito==true){
-  mostrarTexto("resultadoAprobacion", "CREDITO: APROVADO")
+  mostrarTexto("resultadoAprobacion", " APROVADO")
+  colorResultado1.className="aprobado";
+  colorResultado2.className="resultadoAprobado";
   }if(resultCredito==false){
-  mostrarTexto("resultadoAprobacion","CREDITO: RECHAZADO")
+  mostrarTexto("resultadoAprobacion"," RECHAZADO")
+  colorResultado1.className="rechazado";
+  colorResultado2.className="resultadoRechazado";
   }
   //Mostrar en pantalla resultados
   mostrarMensajeDiv("resultadoCredito",'<h3>Datos del Credito</h3>'+
