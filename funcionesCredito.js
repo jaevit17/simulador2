@@ -33,7 +33,7 @@ function calcularCuotaMensual(total,plazoAnios){
   capacidad de pago > cuota mensual == true
   capacidad de pago < cuota mensual == false */
 function aprobarCredito(capacidadPago,cuotaMensual){
-    if(capacidadPago>cuotaMensual){
+    if(Number(capacidadPago)>Number(cuotaMensual)){
         return true;
     }
     return false;

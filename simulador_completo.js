@@ -163,17 +163,17 @@ function calcularCredito(){
   let disponible=cliente.ingresos-cliente.egresos;
   let capacidPago=capacidadDePago(disponible).toFixed(2);
   //Total a pagar
-  tasa=guardarTasa();
+  tasaInteres=guardarTasa();
   let monto=recuperarFloat("montoCredito");
   let plazoAnios=recuperarInt("plazoCredito");
-  let intereses=interes(monto,tasa,plazoAnios);
+  let intereses=interes(monto,tasaInteres,plazoAnios);
   let totalAPagar=totalPagar(monto,intereses)
   //Cuota mensual
   let mensual=calcularCuotaMensual(totalAPagar,plazoAnios).toFixed(2);
   //Resultado del Credito
   let colorResultado1=document.getElementById("resultadoCredito");
   let colorResultado2=document.getElementById("resultadoAprobacion");
-  let resultCredito=aprobarCredito(capacidPago,mensual);
+  let resultCredito=aprobarCredito(Number(capacidPago),Number(mensual));
   if(resultCredito==true){
   mostrarTexto("resultadoAprobacion", " APROVADO")
   colorResultado1.className="aprobado";
@@ -188,4 +188,24 @@ function calcularCredito(){
   '<p><strong>Capacidad de Pago: </strong>'+capacidPago+'</p>'+
   '<p><strong>Total a pagar: </strong>'+totalAPagar+'</p>'+
   '<p><strong>Cuota Mensual: </strong>'+mensual+'</p>');
+  //Habilitar o deshabilitar el botón
+  if (resultCredito==true){
+    document.getElementById("Asignar crédito").disabled = false;
+  }
+  if (resultCredito==false){
+    document.getElementById("Asignar crédito").disabled = true;
+  }
+}
+//Solicitar Credito
+function solicitarCredito(){
+  let credito={
+    cedula: clienteSeleccionado.cedula,
+    nombre: clienteSeleccionado.nombre,
+    apellido: clienteSeleccionado.apellido,
+    monto: montoCalculado,
+    tasa: tasaInteres,
+    plazo: plazoAnios,
+    cuota: mensual
+  }
+  creditos.push(credito);
 }
