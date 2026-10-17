@@ -43,6 +43,7 @@ function ocultarSecciones(){
   desactivaSeccion("parametros")
   desactivaSeccion("clientes")
   desactivaSeccion("creditos")
+  desactivaSeccion("listaCreditos")
 }
 //mostrar seccion
 function mostrarSeccion(idSeccion){
