@@ -247,3 +247,9 @@ function pintarCreditos(creditos){
   }
   mostrarContenidoHtml("tablaCreditos",contenidoTabla);
 }
+//Buscar credito de cliente
+function buscarCreditosCliente(){
+  let cedula=recuperarCajaTexto("buscarCedulaListado");
+  let clienteCredito=buscarCreditos(cedula);
+  pintarCreditos(clienteCredito);
+}
