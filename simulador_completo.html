@@ -16,7 +16,11 @@
     <button onclick="mostrarSeccion('clientes')">Clientes</button>
     <button onclick="mostrarSeccion('creditos')">Creditos</button>
     <button onclick="mostrarSeccion('listaCreditos')">Creditos Registrados</button>
+    <button onclick="mostrarSeccion('contacto')">Contacto</button>
   </nav>
+  <section id="contacto">
+    <h2>Josue Vilcacundo</h2>
+  </section>
 
   <section id="parametros">
     <h2>Configurar Parámetros</h2>
@@ -35,6 +39,7 @@
     <input type="text" id="apellido" placeholder="Ingrese su apellido">
     <input type="number" id="ingresos" placeholder="Ingrese sus ingresos">
     <input type="number" id="egresos" placeholder="Ingrese sus egresos">
+    <input type="text" id="email" placeholder="Ingrese su correo">
     <br>
     <button onclick="guardarCliente()">Guardar cliente</button>
     <button onclick="limpiar()">Limpiar</button>
@@ -56,6 +61,7 @@
         <td>Pérez</td>
         <td>1200</td>
         <td>500</td>
+        
         <td>
           <button onclick="seleccionarCliente(1712345678)">Actualizar</button>
           <button>Eliminar</button>
@@ -67,6 +73,7 @@
         <td>Gómez</td>
         <td>1500</td>
         <td>600</td>
+        
         <td>
           <button onclick="seleccionarCliente(1723456789)">Actualizar</button>
           <button>Eliminar</button>
@@ -78,6 +85,7 @@
         <td>Ramírez</td>
         <td>900</td>
         <td>350</td>
+        
         <td>
           <button onclick="seleccionarCliente(1734567890)">Actualizar</button>
           <button>Eliminar</button>

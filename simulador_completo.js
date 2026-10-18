@@ -44,6 +44,7 @@ function ocultarSecciones(){
   desactivaSeccion("clientes")
   desactivaSeccion("creditos")
   desactivaSeccion("listaCreditos")
+  desactivaSeccion("contacto")
 }
 //mostrar seccion
 function mostrarSeccion(idSeccion){
@@ -71,13 +72,15 @@ function guardarCliente(){
   let apellido=recuperarCajaTexto("apellido");
   let ingresos=recuperarInt("ingresos");
   let egresos=recuperarInt("egresos");
+  let email=recuperarCajaTexto("email");
   let clienteEncontrado=buscarCliente(cedula);
   if(clienteEncontrado==null){
   let cliente={cedula,
               nombre,
               apellido,
               ingresos,
-              egresos
+              egresos,
+              email
               }
   clientes.push(cliente);
   }else{
@@ -85,6 +88,7 @@ function guardarCliente(){
     clienteEncontrado.apellido=apellido;
     clienteEncontrado.ingresos=ingresos;
     clienteEncontrado.egresos=egresos;
+    clienteEncontrado.email=email;
 }
 pintarClientes();
 }
@@ -98,6 +102,7 @@ function pintarClientes(){
           "<td>"+clientes[i].apellido+"</td>"+
           "<td>"+clientes[i].ingresos+"</td>"+
           "<td>"+clientes[i].egresos+"</td>"+
+          "<td>"+clientes[i].email+"</td>"+
           "<td>"+
             `<button onclick="seleccionarCliente('`+clientes[i].cedula+`')">Actualizar</button>`+
             "<button>Eliminar</button>"+
@@ -126,6 +131,7 @@ function seleccionarCliente(cedula){
     mostrarContenidoCajaText("apellido",clienteSeleccionado.apellido);
     mostrarContenidoCajaText("ingresos",clienteSeleccionado.ingresos);
     mostrarContenidoCajaText("egresos",clienteSeleccionado.egresos);
+    mostrarContenidoCajaText("email",clienteSeleccionado.email);
   }
 }
 //limpiar
@@ -135,6 +141,7 @@ function limpiar(){
     mostrarContenidoCajaText("apellido","");
     mostrarContenidoCajaText("ingresos","");
     mostrarContenidoCajaText("egresos","");
+    mostrarContenidoCajaText("email","");
 }
 
 
@@ -222,4 +229,21 @@ function buscarCreditos(cedula){
     }
   }
   return creditosEncontrados;
-}  
+}
+//Pintar Creditos
+function pintarCreditos(creditos){
+  let contenidoTabla="";
+  for (leti=0;i<creditos.length;i++){
+    contenidoTabla+="<tr>"+
+        "<td>"+creditos[i].cedula+"</td>"+
+        "<td>"+creditos[i].nombre+"</td>"+
+        "<td>"+creditos[i].apellido+"</td>"+
+        "<td>"+creditos[i].monto+"</td>"+
+        "<td>"+creditos[i].tasa+"</td>"+
+        "<td>"+creditos[i].plazo+"</td>"+
+        "<td>"+creditos[i].cuota+"</td>"+
+        "<td><button>Eliminar</button></td>"+
+      "</tr>"
+  }
+  mostrarContenidoHtml("tablaCreditos",contenidoTabla);
+}
