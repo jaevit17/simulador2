@@ -36,6 +36,38 @@ let cliente3={
               }
 clientes.push(cliente3);
 
+//Creditos precargados----------------
+let credito1={
+              cedula:1712345678,
+              nombre:"Juan",
+              apellido:"Pérez",
+              monto:3000,
+              tasa:15,
+              plazo:1,
+              cuota:287.50
+}
+creditos.push(credito1);
+let credito2={
+              cedula:1723456789,
+              nombre:"María",
+              apellido:"Gómez",
+              monto:5000,
+              tasa:14,
+              plazo:2,
+              cuota:237.50
+}
+creditos.push(credito2);
+let credito3={
+              cedula:1734567890,
+              nombre:"Carlos",
+              apellido:"Ramírez",
+              monto:1500,
+              tasa:16,
+              plazo:0.5,
+              cuota:290.00
+}
+creditos.push(credito3);
+
 
 //Funciones Parametros----------------
 //ocultar secciones
@@ -54,13 +86,13 @@ function mostrarSeccion(idSeccion){
 //guardar tasa
 function guardarTasa(){
   let cmpTasa=recuperarCajaTexto("tasaInteres");
-  let tasa=parseInt(cmpTasa);
-  if(tasa<10||tasa>20){
+  tasaInteres=parseInt(cmpTasa);
+  if(tasaInteres<10||tasaInteres>20){
     mostrarMensajeTasa("La tasa debe estar entre 10% y 20%");
   }else{
-    mostrarMensajeTasa("Tasa configurada correctamente: "+tasa+"%");
+    mostrarMensajeTasa("Tasa configurada correctamente: "+tasaInteres+"%");
   }
-  return tasa;
+  return tasaInteres;
 }
 
 
@@ -124,7 +156,7 @@ function buscarCliente(cedula){
 }
 //seleccionar cliente
 function seleccionarCliente(cedula){
-  let clienteSeleccionado=buscarCliente(cedula);
+  clienteSeleccionado=buscarCliente(cedula);
   if(clienteSeleccionado !=null){
     mostrarContenidoCajaText("cedula",clienteSeleccionado.cedula);
     mostrarContenidoCajaText("nombre",clienteSeleccionado.nombre);
@@ -151,6 +183,7 @@ function buscarClienteCredito(){
   let cedula=document.getElementById("buscarCedulaCredito");
   let valorCedula=cedula.value;
   let cliente=buscarCliente(valorCedula);
+  clienteSeleccionado=cliente;
   if(cliente!=null){
     mostrarMensajeDiv("datosClienteCredito",'<h3>Datos del Cliente</h3>'+
     '<p><strong>Cédula: </strong>'+cliente.cedula+'</p>'+
@@ -165,23 +198,21 @@ function buscarClienteCredito(){
 //calcular Credito
 function calcularCredito(){
   //capacidad de pago
-  let cedula=document.getElementById("buscarCedulaCredito");
-  let valorCedula=cedula.value;
+  let valorCedula=recuperarCajaTexto("buscarCedulaCredito");
   let cliente=buscarCliente(valorCedula);
   let disponible=cliente.ingresos-cliente.egresos;
   let capacidPago=capacidadDePago(disponible).toFixed(2);
   //Total a pagar
-  tasaInteres=guardarTasa();
-  let monto=recuperarFloat("montoCredito");
-  let plazoAnios=recuperarInt("plazoCredito");
-  let intereses=interes(monto,tasaInteres,plazoAnios);
-  let totalAPagar=totalPagar(monto,intereses)
+  montoCalculado=recuperarFloat("montoCredito");
+  plazoCalculado=recuperarInt("plazoCredito");
+  let intereses=interes(montoCalculado,tasaInteres,plazoCalculado);
+  let totalAPagar=totalPagar(montoCalculado,intereses)
   //Cuota mensual
-  let mensual=calcularCuotaMensual(totalAPagar,plazoAnios).toFixed(2);
+  cuotaCalculada=calcularCuotaMensual(totalAPagar,plazoCalculado).toFixed(2);
   //Resultado del Credito
   let colorResultado1=document.getElementById("resultadoCredito");
   let colorResultado2=document.getElementById("resultadoAprobacion");
-  let resultCredito=aprobarCredito(Number(capacidPago),Number(mensual));
+  let resultCredito=aprobarCredito(Number(capacidPago),Number(cuotaCalculada));
   if(resultCredito==true){
   mostrarTexto("resultadoAprobacion", " APROVADO")
   colorResultado1.className="aprobado";
@@ -195,7 +226,8 @@ function calcularCredito(){
   mostrarMensajeDiv("resultadoCredito",'<h3>Datos del Credito</h3>'+
   '<p><strong>Capacidad de Pago: </strong>'+capacidPago+'</p>'+
   '<p><strong>Total a pagar: </strong>'+totalAPagar+'</p>'+
-  '<p><strong>Cuota Mensual: </strong>'+mensual+'</p>');
+  '<p><strong>Cuota Mensual: </strong>'+cuotaCalculada+'</p>'+
+  '<p><strong>Plazo: </strong>'+(plazoCalculado*12)+' meses</p>');
   //Habilitar o deshabilitar el botón
   if (resultCredito==true){
     document.getElementById("Asignar crédito").disabled = false;
@@ -212,10 +244,11 @@ function solicitarCredito(){
     apellido: clienteSeleccionado.apellido,
     monto: montoCalculado,
     tasa: tasaInteres,
-    plazo: plazoAnios,
-    cuota: mensual
+    plazo: plazoCalculado,
+    cuota: cuotaCalculada
   }
   creditos.push(credito);
+  alert("Credito asignado correctamente")
 }
 
 
@@ -233,14 +266,14 @@ function buscarCreditos(cedula){
 //Pintar Creditos
 function pintarCreditos(creditos){
   let contenidoTabla="";
-  for (leti=0;i<creditos.length;i++){
+  for (let i=0;i<creditos.length;i++){
     contenidoTabla+="<tr>"+
         "<td>"+creditos[i].cedula+"</td>"+
         "<td>"+creditos[i].nombre+"</td>"+
         "<td>"+creditos[i].apellido+"</td>"+
         "<td>"+creditos[i].monto+"</td>"+
-        "<td>"+creditos[i].tasa+"</td>"+
-        "<td>"+creditos[i].plazo+"</td>"+
+        "<td>"+creditos[i].tasa+"%"+"</td>"+
+        "<td>"+(creditos[i].plazo*12)+" meses"+"</td>"+
         "<td>"+creditos[i].cuota+"</td>"+
         "<td><button>Eliminar</button></td>"+
       "</tr>"
